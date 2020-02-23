@@ -11,19 +11,18 @@ mongo = PyMongo(app)
 
 
 
-
-
-
-@app.route('/')
+@app.route('/', methods=['GET','POST'])
 def index():
-	contacts = mongo.db.contacts.find()
+	if request.method == "POST":
+		if request.form.get('q') == "":
+			contacts = mongo.db.contacts.find()
+			return render_template('index.html', contacts=contacts)
+		else:
+			query = request.form.get('q')
+			contacts = mongo.db.contacts.find({'$text': {'$search' : query}})
+			return render_template('index.html', contacts=contacts)
 
-	return render_template('base.html', contacts=contacts)
-
-
-
-
-
+	return render_template('index.html')
 
 
 

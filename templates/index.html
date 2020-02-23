@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form class="mt-2 pl-2 pr-2 mb-2" method="POST">
+  <fieldset>
+       <div class="form-group">
+      <input type="text" class="form-control" name="q" aria-describedby="Search Help" placeholder="Search Phonebook">
+    </div>
+</fieldset>
+</form>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Phone Number</th>
+      <th scope="col">Address</th>
+    </tr>
+  </thead>
+  <tbody>
+  	{% for i in contacts %}
+    <tr class="table-primary">
+      <th scope="row">{{ i.name }}</th>
+      <td>{{ i.phone_number }}</td>
+      <td> {{ i.address }}</td>
+    </tr>
+     {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
